@@ -48,3 +48,7 @@ p {
 #explanation {
 	margin-top: 40px;
 }
+
+#result_note {
+	display: none;	
+}

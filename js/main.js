@@ -57,6 +57,11 @@ function setup() {
         		var fortuneNum = result['c'][0];
         		console.log(fortuneNum);
         		$('#result_omikuji').text(getFortune(fortuneNum));
+
+        		if (fortuneNum == 0) {
+        			$('#result_note').show();
+        		}
+
         		$('#result').show();
         	}
 		});
