@@ -1,0 +1,93 @@
+pragma solidity ^0.4.19;
+
+contract NonSmartSmartOmikuji {
+    
+    // おみくじ結果の列挙型だよ。
+    enum Fortune {
+        Error,      // エラー
+        DaiKichi,   // 大吉
+        Kichi,      // 吉
+        ChuKichi,   // 中吉
+        ShoKichi,   // 小吉
+        SueKichi,   // 末吉
+        Kyo,        // 凶
+        DaiKyo      // 大凶
+    }
+    
+    // このコントラクトの所有者アドレスを保持するための定数だよ。
+    address constant internal owner = 0x552104525e758Bd874c6075FaAfEE2C23FDfc1Ee;
+    
+    // おみくじの結果を保存するための連想配列みたいなやつ。
+    mapping (address => uint8) internal results;
+
+    /*************************************************************************** 
+    PUBLIC FUNCTIONS 
+    ***************************************************************************/
+    
+    // 無名関数は、Ether がこのコントラクトに送付された時に実行されます。
+    // 送る Ether は、<strong>お気持ちだけで</strong> 結構ですので、
+    // 実際には 0 Ether でもおみくじを引くことができます（ Gasは必要）
+    function () payable public{
+        // おみくじを引きます。
+        drawOmikuji(msg.sender, msg.value);
+    }
+    
+    // おみくじの結果を取得します。
+    function getResult(address _address) constant public returns (uint8) {
+        return results[_address];
+    }
+    
+    // このコントラクトに貯まった Ether を引き出します。    
+    function withdraw() public {
+        if (msg.sender == owner) {
+            msg.sender.transfer(this.balance);
+        } 
+    }
+    
+    // このコントラクトを破棄します。
+    function destroyContract() public {
+        if (msg.sender == owner) {
+            selfdestruct(msg.sender);
+        }
+    }
+
+    /*************************************************************************** 
+    INTERNAL FUNCTIONS 
+    ***************************************************************************/
+    
+    // // おみくじを引いて、結果を保存します。
+    function drawOmikuji(address _address, uint _value) internal {
+        uint randomNumber = getRandamNumber((uint(_address) + _value), 100);
+        results[_address] = uint8(getFortune(randomNumber));
+    }
+    
+    // ランダムな値を取得します。
+    // 注意: ランダム性がとても重要になるコントラクトでは使用しない。
+    // 一つ前のブロックのハッシュを使うため、miner によってコントロールされる可能性があるため。
+    function getRandamNumber(uint _seed, uint _max) constant internal returns (uint) {
+        return uint(keccak256(block.blockhash(block.number-1), _seed ))%_max;
+    }
+    
+    // 運勢を取得します。
+    function getFortune(uint _number) pure internal returns (Fortune) {
+        Fortune fortune = Fortune.Error;
+        uint8 i = 0;
+        if (_number < (i+=5)) {             // 5% (0-4)
+            fortune = Fortune.DaiKichi;     // 1. 大吉
+        } else if (_number < (i+=10)) {     // 10% (5-14)
+            fortune = Fortune.Kichi;        // 2. 吉
+        } else if (_number < (i+=20)) {     // 20% (15-34)
+            fortune = Fortune.ChuKichi;     // 3. 中吉
+        } else if (_number < (i+=30)) {     // 30% (35-64)
+            fortune = Fortune.ShoKichi;     // 4. 小吉
+        } else if (_number < (i+=20)) {     // 20% (65-84)
+            fortune = Fortune.SueKichi;     // 5. 末吉
+        } else if (_number < (i+=10)) {     // 10% (85-94)
+            fortune = Fortune.Kyo;          // 6. 凶
+        } else if (_number < (i+=5)) {      // 5% (95-99)
+            fortune = Fortune.DaiKyo;       // 7. 大凶
+        }
+        return fortune;
+    }
+    
+}
