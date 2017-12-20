@@ -1,0 +1,50 @@
+html, body, h1, p, div {
+    font-size: 100%;
+ 	font-family: "HelveticaNeue";
+    font-style: normal;
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 200%;
+}
+
+p {
+	color: #2f4f4f;
+}
+
+#container {
+	margin: 0 auto;
+	text-align: center;
+	width: 100%;
+}
+
+#okimochi {
+	font-size: 150%;
+}
+
+#f_eth_value {
+    font-size: 150%;
+    text-align: right;
+    width: 120px;
+}
+
+#omikuji_submit_button {
+    font-size: 150%;
+}
+
+.modal {
+	display: none;
+}
+
+#result {
+	display: none;
+}
+
+#result_omikuji {
+	font-size: 600%;
+}
+
+#explanation {
+	margin-top: 40px;
+}

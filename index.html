@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Non Smart Smart Omikuji</title>
+	<link rel="stylesheet" href="./css/main.css">
+	<link rel="stylesheet" href="./css/iziModal.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="./js/web3.min.js"></script>
+	<script src="./js/iziModal.min.js"></script>
+</head>
+<body>
+
+<div id="container">
+	<div id="result">
+		<p>Address: <span id="result_address"></span> の運勢</p>
+		<p><span id="result_omikuji"></p>
+	</div>
+
+	<div id="omikuji">
+		<p id="okimochi">お気持ち: <input type="number" id="f_eth_value" name="f_eth_value" min="0" step="0.01" value="0.01"> Ether</p>
+		<button id="omikuji_submit_button">MetaMask を使っておみくじを引く</button>
+	</div>
+
+	<div id="explanation">
+		<h1>Non Smart Smart Omikuji とは？</h1>
+		<p>Ethereum の Smart Contract で作られたおみくじです。</p>
+		<p>特にスマートな機能はないですが、Smart Contract のアドレス <b>0xB591Cd885f77A26418E88BFa60cF3EfF75d7ba8d</b> に Ether を送ることで、おみくじを引くことができます。 </p>
+		<p>なお、送る Ether の数は、<strong>お気持ちだけで</strong> 結構です。</p>
+		<p>MetaMask を使うと、上記のボタンを押すだけで、このサイト上で簡単に Ether を送って、おみくじの結果を見ることができます。</p>
+		<p>MetaMask がない場合は、Smart Contract のアドレス <b>***</b> に直接 Ether を送ってください。</p>
+		<p>おみくじの結果は、<a href="https://piyolab.github.io/NSSO/?address=">https://piyolab.github.io/NSSO/?address=<b>ADDRESS</b></a> の <b>ADDRESS</b> 部分を、Ether を送付したウォレットのアドレスに変えると見ることができます。</p>
+		<p>（Gas は消費しますが、送る Ether 自体は 0 でも大丈夫です。）</p>
+		<p>トランザクションがブロックに取り込まれるまでにしばらく時間がかかる場合があります。 結果が反映されない場合は、しばらく時間を置いてからサイトにアクセスしてみてください。</p>
+		<p>Gas 不足によってトランザクションが失敗することもあります。その場合は GasLimit を増やしてみてください。</p>
+	</div>
+
+</div>
+
+<div id="modal_transaction_sent" class="modal">
+	<p>Transaction Hash: <span id="modal_transaction_sent_transaction_hash"></span></p>
+	<p>From: <span id="modal_transaction_sent_from"></span></p>
+	<p>To: <span id="modal_transaction_sent_to"></span></p>
+	<button id="show_result_button">結果をみる</button>
+</div>
+
+<script src="./js/main.js"></script>
+</body>
+</html>
