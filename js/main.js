@@ -1,5 +1,5 @@
 var CONTRACT_ADDRESS = 
-"0xe9d33c2a0169fc740af6d9c0a8247da0cc767cba"
+"0xB591Cd885f77A26418E88BFa60cF3EfF75d7ba8d"
 ;
 var CONTRACT_ABI = 
 [{"constant":true,"inputs":[{"name":"_address","type":"address"}],"name":"getResult","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"destroyContract","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"}]
